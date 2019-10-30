@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="44">
   <author>yumi</author>
-  <version>1.0.0.0</version>
+  <version>1.0.0.1</version>
   <title>
     <en>Stubble Cultivator</en>
     <fr>Déchaumeur</fr>
@@ -12,16 +12,25 @@
 The mod is a global specialization added to any tool implementing Cultivator or SowingMachine spec.
 When activated, Stubble Cultivator will let chopped straw on the field when using cultivator to distinguish stubble cultivator vs. standard cultivator.
 Similarly, by activating the mod on a seeder, chopped straw remains after sowing.
+==== CHANGELOG ====
+Fixed in v1.0.0.1
+  - Work area detection error leading to chopped straw not applied every time it should
     ]]></en>
     <de><![CDATA[
 Dieser Mod ist eine globale Spezialisierung, die jedem Werkzeug hinzugefügt wird, welches als Grubber, oder Sämaschine eingetragen ist.
 Sobald dieser Mod aktiviert wurde, lässen er das gehäckselte Stroh auf dem Feld, so kann man den Unterschied zwischen einem normalen Grubber und dem aktiven Mod sehen.
 In ähnlicher Weise bleibt gehäckseltes Stroh nach der Aussaat zurück, wenn der Mod bei einer Sämaschine aktiviert wird.
+==== CHANGELOG ====
+Fixed in v1.0.0.1
+  - Fehler bei der Erkennung des Arbeitsbereichs, der dazu führt, dass das gehackte Stroh nicht immer angewendet wird
     ]]></de>
     <fr><![CDATA[
 Le mod est une spécialisation globale ajoutée à tous les outils implémentant la spec Cultivator et SowingMachine.
 Une fois activé, le mod Dechaumeur laisse les débris de paille (chopped straw) dans le champ pour distinguer un déchaumeur d'un cultivateur standard.
 De même, en activant le mod sur un semoir, les débris de paille restent lors du semis.
+==== CHANGELOG ====
+Fixed in v1.0.0.1
+  - Erreur de détection de la zone de travail entraînant des manques de débris de paille à certains endroits
     ]]></fr>
   </description>
   <iconFilename>icon_StubbleCultivator.dds</iconFilename>

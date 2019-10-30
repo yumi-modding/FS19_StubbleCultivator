@@ -121,9 +121,22 @@ function StubbleSowingMachine.actionEventSetActive(self, actionName, inputValue,
 end
 
 function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
-  local xs,_,zs = getWorldTranslation(workArea.start)
-  local xw,_,zw = getWorldTranslation(workArea.width)
-  local xh,_,zh = getWorldTranslation(workArea.height)
+  local xs,ys,zs = getTranslation(workArea.start)
+  local xw,yw,zw = getTranslation(workArea.width)
+  local xh,yh,zh = getTranslation(workArea.height)
+
+	local checkDir = 0
+	if self.movingDirection ~= 0 then
+		checkDir = self.movingDirection
+	end
+
+  local _xs, _ys, _zs = localToWorld(self.components[1].node, xs, ys, zs + checkDir) -- check 1m in front of the working area
+  local _xw, _yw, _zw = localToWorld(self.components[1].node, xw, yw, zw + checkDir) -- check 1m in front of the working area
+  local _xh, _yh, _zh = localToWorld(self.components[1].node, xh, yh, zh + checkDir) -- check 1m in front of the working area
+
+  local x, z, widthX, widthZ, heightX, heightZ = MathUtil.getXZWidthAndHeight(_xs, _zs, _xw, _zw, _xh, _zh)
+
+  if StubbleCultivator.debug then DebugUtil.drawDebugParallelogram(x, z, widthX, widthZ, heightX, heightZ, 2, 1, 0, 0, 1) end
 
   local excludedFruits = {  "WEED", "COTTON" }
 
@@ -137,12 +150,12 @@ function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
       local query = g_currentMission.fieldCropsQuery
       if requiredFruitType ~= FruitType.UNKNOWN then
           local minState = requiredFruitType.minHarvestingGrowthState + 1
-          local maxState = requiredFruitType.maxHarvestingGrowthState + 1
+          local maxState = requiredFruitType.cutState + 1
           if fruit ~= nil and fruit.id ~= 0 then
               query:addRequiredCropType(fruit.id, minState,  maxState, requiredFruitType.startStateChannel, requiredFruitType.numStateChannels, g_currentMission.terrainDetailTypeFirstChannel, g_currentMission.terrainDetailTypeNumChannels)
           end
       end
-      local area, _ = query:getParallelogram(xs, zs, xw, zw, xh, zh, true)
+      local area, _ = query:getParallelogram(x, z, widthX, widthZ, heightX, heightZ, true)
       -- print("area: "..tostring(area))
       if area > 0 then
         local isExcludedFruit = false
@@ -168,7 +181,11 @@ function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
 
   -- Then choppedStraw if active
   if self:getIsStubbleSowingMachineActive() and fruitIdx ~= nil then
-    FSDensityMapUtil.setGroundTypeLayerArea(xs, zs, xw, zw, xh, zh, g_currentMission.chopperGroundLayerType)
+    local wxs,_,wzs = getWorldTranslation(workArea.start)
+    local wxw,_,wzw = getWorldTranslation(workArea.width)
+    local wxh,_,wzh = getWorldTranslation(workArea.height)
+  
+    FSDensityMapUtil.setGroundTypeLayerArea(wxs, wzs, wxw, wzw, wxh, wzh, g_currentMission.chopperGroundLayerType)
     self:raiseActive()
   end
 

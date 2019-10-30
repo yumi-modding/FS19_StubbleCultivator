@@ -12,7 +12,7 @@ StubbleCultivator_Register = {};
 StubbleCultivator_Register.debug = false --true --
 
 -- local modItem = ModsUtil.findModItemByModName(g_currentModName);
-StubbleCultivator_Register.version = "1.0.0.0" --(modItem and modItem.version) and modItem.version or "1.0.0.0";
+StubbleCultivator_Register.version = "1.0.0.1" --(modItem and modItem.version) and modItem.version or "1.0.0.0";
 
 --
 StubbleCultivator_Register.initialized = false
