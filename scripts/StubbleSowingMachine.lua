@@ -136,7 +136,7 @@ function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
 
   local x, z, widthX, widthZ, heightX, heightZ = MathUtil.getXZWidthAndHeight(_xs, _zs, _xw, _zw, _xh, _zh)
 
-  if StubbleCultivator.debug then DebugUtil.drawDebugParallelogram(x, z, widthX, widthZ, heightX, heightZ, 2, 1, 0, 0, 1) end
+  if StubbleSowingMachine.debug then DebugUtil.drawDebugParallelogram(x, z, widthX, widthZ, heightX, heightZ, 2, 1, 0, 0, 1) end
 
   local excludedFruits = {  "WEED", "COTTON" }
 
