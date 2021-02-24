@@ -46,26 +46,31 @@ Fixed in v1.0.0.1
             <en>Activate stubble cultivator</en>
             <de>Stoppelbearbeitung aktivieren</de>
             <fr>Activer déchaumeur</fr>
+            <pl>Włącz kultywację ścierniska</pl>
     </text>
     <text name="StubbleCultivator_Deactivate">
             <en>Deactivate stubble cultivator</en>
             <de>Stoppelbearbeitung deaktivieren</de>
             <fr>Desactiver déchaumeur</fr>
+            <pl>Wyłącz kultywację ścierniska</pl>
     </text>
     <text name="input_STUBBLE_OnOffStubbleCultivator">
             <en>Activate/Deactivate stubble cultivator</en>
             <de>Stoppelbearbeitung aktivieren/deaktivieren</de>
             <fr>Activer/Désactiver déchaumeur</fr>
+      <pl>Włącz/Wyłącz kultywację ścierniska</pl>
     </text>
     <text name="StubbleSowingMachine_Activate">
             <en>Activate stubble sowing</en>
             <de>Stoppelbearbeitung aktivieren</de>
             <fr>Activer déchaumeur</fr>
+            <pl>Włącz siew ścierniskowy</pl>
     </text>
     <text name="StubbleSowingMachine_Deactivate">
             <en>Deactivate stubble sowing</en>
             <de>Stoppelbearbeitung deaktivieren</de>
             <fr>Desactiver déchaumeur</fr>
+            <pl>Wyłącz siew ścierniskowy</pl>
     </text>
   </l10n>
 
