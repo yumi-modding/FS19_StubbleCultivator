@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="46">
+<modDesc descVersion="53">
   <author>yumi</author>
-  <version>1.0.0.1</version>
+  <version>1.0.0.2</version>
   <title>
     <en>Stubble Cultivator</en>
     <fr>Déchaumeur</fr>
@@ -17,6 +17,9 @@ CHANGELOG:
 
 Fixed in v1.0.0.1
 - Work area detection error leading to chopped straw not applied every time it should
+Fixed in v1.0.0.2
+- Issue with Väderstad Carrier XL 825
+- Adding polish translation
     ]]></en>
 <de><![CDATA[
 Dieser Mod ist eine globale Spezialisierung. Sie wird jedem Gerät hinzugefügt welches als Grubber oder Sämaschine eingetragen ist.
@@ -27,6 +30,9 @@ CHANGELOG:
 
 Fixed in V 1.0.0.1
 - Fehler bei der Erkennung des Arbeitsbereichs der dazu führt das gehäckseltes Stroh nicht immer angezeigt wird.
+Fixed in v1.0.0.2
+- Problem mit Väderstad Carrier XL 825
+- Polnische Übersetzung hinzufügen
 ]]></de>
     <fr><![CDATA[
 Le mod est une spécialisation globale ajoutée à tous les outils implémentant la spec Cultivator et SowingMachine.
@@ -37,6 +43,9 @@ CHANGELOG:
 
 Fixed in v1.0.0.1
 - Erreur de détection de la zone de travail entraînant des manques de débris de paille à certains endroits
+Fixed in v1.0.0.2
+- Problème avec le Väderstad Carrier XL 825
+- Ajout de la traduction polonaise
     ]]></fr>
   </description>
   <iconFilename>icon_StubbleCultivator.dds</iconFilename>

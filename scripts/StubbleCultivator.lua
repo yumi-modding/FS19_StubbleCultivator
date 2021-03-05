@@ -177,7 +177,17 @@ function StubbleCultivator:processCultivatorArea(superfunc, workArea, dt)
   end
 
   -- Start by applying cultivator layer type
-  local realArea, area = superfunc(self, workArea, dt)
+  local realArea = 0
+  local area = 0
+  if self:getIsStubbleCultivatorActive() and self.configFileName == "data/vehicles/vaderstad/carrierXL825/carrierXL825.xml" then
+    if workArea.index < 2 then
+      realArea, area = superfunc(self, workArea, dt)
+    end
+  else
+    realArea, area = superfunc(self, workArea, dt)
+  end
+  
+
 
   -- Then choppedStraw if active
   if self:getIsStubbleCultivatorActive() and fruitIdx ~= nil then
