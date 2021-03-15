@@ -12,7 +12,7 @@ StubbleCultivator_Register = {};
 StubbleCultivator_Register.debug = false --true --
 
 -- local modItem = ModsUtil.findModItemByModName(g_currentModName);
-StubbleCultivator_Register.version = "1.0.0.1" --(modItem and modItem.version) and modItem.version or "1.0.0.0";
+StubbleCultivator_Register.version = "1.0.1.0" --(modItem and modItem.version) and modItem.version or "1.0.0.0";
 
 --
 StubbleCultivator_Register.initialized = false
@@ -46,8 +46,9 @@ StubbleCultivator_Register:register();
 
 -- Texts
 StubbleCultivator.l10nTexts = {};
-StubbleCultivator.l10nTexts["StubbleCultivator_Activate"] = g_i18n:getText("StubbleCultivator_Activate");
-StubbleCultivator.l10nTexts["StubbleCultivator_Deactivate"] = g_i18n:getText("StubbleCultivator_Deactivate");
+StubbleCultivator.l10nTexts["StubbleCultivator_Activated"] = g_i18n:getText("StubbleCultivator_Activated");
+StubbleCultivator.l10nTexts["StubbleCultivator_Deactivated"] = g_i18n:getText("StubbleCultivator_Deactivated");
+StubbleCultivator.l10nTexts["StubbleCultivator_AlwaysActivated"] = g_i18n:getText("StubbleCultivator_AlwaysActivated");
 
 
 -- addModEventListener(StubbleCultivator_Register);

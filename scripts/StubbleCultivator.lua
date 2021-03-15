@@ -24,6 +24,7 @@ function StubbleCultivator.registerFunctions(vehicleType)
 	if StubbleCultivator.debug then print("StubbleCultivator:registerFunctions() ") end
   SpecializationUtil.registerFunction(vehicleType, "setStubbleCultivatorActive", StubbleCultivator.setStubbleCultivatorActive)
   SpecializationUtil.registerFunction(vehicleType, "getIsStubbleCultivatorActive", StubbleCultivator.getIsStubbleCultivatorActive)
+  SpecializationUtil.registerFunction(vehicleType, "getIsStubbleCultivatorAlwaysActive", StubbleCultivator.getIsStubbleCultivatorAlwaysActive)
 end
 
 function StubbleCultivator.registerOverwrittenFunctions(vehicleType)
@@ -45,15 +46,13 @@ function StubbleCultivator:onLoad(savegame)
   if StubbleCultivator.debug then print("StubbleCultivator:onLoad() ") end
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
   spec.isStubbleCultivatorActive = false;
+  spec.isStubbleCultivatorAlwaysActive = false;
   if savegame ~= nil then
     local isStubbleCultivatorActive = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key.."."..StubbleCultivator.modName..".StubbleCultivator#StubbleCultivator"), false);
-    if isStubbleCultivatorActive == nil then
-      self:setStubbleCultivatorActive(false);
-    else
-      self:setStubbleCultivatorActive(isStubbleCultivatorActive);
-    end
+    local isStubbleCultivatorAlwaysActive = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key.."."..StubbleCultivator.modName..".StubbleCultivator#Always"), false);
+    self:setStubbleCultivatorActive(isStubbleCultivatorActive, isStubbleCultivatorAlwaysActive);
   else
-      self:setStubbleCultivatorActive(false);
+      self:setStubbleCultivatorActive(false, false);
   end;
 end;
 
@@ -61,18 +60,23 @@ function StubbleCultivator:saveToXMLFile(xmlFile, key, usedModNames)
   if StubbleCultivator.debug then print("StubbleCultivator:saveToXMLFile() ") end
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
   setXMLBool(xmlFile, key.."#StubbleCultivator", spec.isStubbleCultivatorActive)
+  setXMLBool(xmlFile, key.."#Always", spec.isStubbleCultivatorAlwaysActive)
 end;
 
 function StubbleCultivator:onReadStream(streamId, connection)
   local isActive = streamReadBool(streamId)
+  local isAlwaysActive = streamReadBool(streamId)
   if StubbleCultivator.debug then print("StubbleCultivator:onReadStream() "..tostring(isActive)) end
-  self:setStubbleCultivatorActive(isActive, true);
+  if StubbleCultivator.debug then print("StubbleCultivator:onReadStream() "..tostring(isAlwaysActive)) end
+  self:setStubbleCultivatorActive(isActive, isAlwaysActive, true);
 end;
 
 function StubbleCultivator:onWriteStream(streamId, connection)
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
   if StubbleCultivator.debug then print("StubbleCultivator:onWriteStream() "..tostring(spec.isStubbleCultivatorActive)) end
+  if StubbleCultivator.debug then print("StubbleCultivator:onWriteStream() "..tostring(spec.isStubbleCultivatorAlwaysActive)) end
   streamWriteBool(streamId, spec.isStubbleCultivatorActive);
+  streamWriteBool(streamId, spec.isStubbleCultivatorAlwaysActive);
 end;
 
 function StubbleCultivator:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
@@ -82,11 +86,16 @@ function StubbleCultivator:onUpdate(dt, isActiveForInput, isActiveForInputIgnore
       local actionEvent = spec.actionEvents['STUBBLE_OnOffStubbleCultivator']
       if actionEvent ~= nil and actionEvent.actionEventId ~= nil then
         local isActive = self:getIsStubbleCultivatorActive()
+        local isAlwaysActive = self:getIsStubbleCultivatorAlwaysActive()
         local text
         if isActive then
-          text = string.format(g_i18n:getText("StubbleCultivator_Deactivate"))
+          if isAlwaysActive then
+            text = string.format(g_i18n:getText("StubbleCultivator_AlwaysActivated"))
+          else
+            text = string.format(g_i18n:getText("StubbleCultivator_Activated"))
+          end
         else
-          text = string.format(g_i18n:getText("StubbleCultivator_Activate"))
+          text = string.format(g_i18n:getText("StubbleCultivator_Deactivated"))
         end
         g_inputBinding:setActionEventText(actionEvent.actionEventId, text)
       end
@@ -116,7 +125,21 @@ function StubbleCultivator.actionEventSetActive(self, actionName, inputValue, ca
   if StubbleCultivator.debug then print("StubbleCultivator.actionEventSetActive "..tostring(actionName)) end
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
   if actionName == 'STUBBLE_OnOffStubbleCultivator' then
-    self:setStubbleCultivatorActive(not spec.isStubbleCultivatorActive);
+    if not spec.isStubbleCultivatorActive then
+      if StubbleCultivator.debug then print("StubbleCultivator On") end
+      -- On
+      self:setStubbleCultivatorActive(true, false);
+    else
+      if not spec.isStubbleCultivatorAlwaysActive then
+        if StubbleCultivator.debug then print("StubbleCultivator Always") end
+        -- Always
+        self:setStubbleCultivatorActive(true, true);
+      else
+        if StubbleCultivator.debug then print("StubbleCultivator Off") end
+        -- Off
+        self:setStubbleCultivatorActive(false, false);
+      end
+    end
   end
 end
 
@@ -190,7 +213,7 @@ function StubbleCultivator:processCultivatorArea(superfunc, workArea, dt)
 
 
   -- Then choppedStraw if active
-  if self:getIsStubbleCultivatorActive() and fruitIdx ~= nil then
+  if self:getIsStubbleCultivatorActive() and (fruitIdx ~= nil or self:getIsStubbleCultivatorAlwaysActive()) then
     local wxs,_,wzs = getWorldTranslation(workArea.start)
     local wxw,_,wzw = getWorldTranslation(workArea.width)
     local wxh,_,wzh = getWorldTranslation(workArea.height)
@@ -202,22 +225,27 @@ function StubbleCultivator:processCultivatorArea(superfunc, workArea, dt)
   return realArea, area
 end
 
-function StubbleCultivator:setStubbleCultivatorActive(isActive, noEventSend)
+function StubbleCultivator:setStubbleCultivatorActive(isActive, isAlwaysActive, noEventSend)
   if StubbleCultivator.debug then print("StubbleCultivator:setStubbleCultivatorActive() "..tostring(isActive)) end
+  if StubbleCultivator.debug then print("StubbleCultivator:setStubbleCultivatorActive() "..tostring(isAlwaysActive)) end
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
-  if isActive ~= spec.isStubbleCultivatorActive then
-    StubbleCultivatorEvent.sendEvent(self, isActive, noEventSend);
+  if isActive ~= spec.isStubbleCultivatorActive or isAlwaysActive ~= spec.isStubbleCultivatorAlwaysActive then
+    StubbleCultivatorEvent.sendEvent(self, isActive, isAlwaysActive, noEventSend);
     spec.isStubbleCultivatorActive = isActive
+    spec.isStubbleCultivatorAlwaysActive = isAlwaysActive
     SpecializationUtil.raiseEvent(self, "onChangedStubbleCultivator")
   end;
 end;
-
 
 function StubbleCultivator:getIsStubbleCultivatorActive()
   local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
    return spec.isStubbleCultivatorActive
 end;
 
+function StubbleCultivator:getIsStubbleCultivatorAlwaysActive()
+  local spec = self["spec_"..StubbleCultivator.modName..".StubbleCultivator"]
+   return spec.isStubbleCultivatorAlwaysActive
+end;
 
 function StubbleCultivator:onChangedStubbleCultivator()
   if StubbleCultivator.debug then print("StubbleCultivator:onChangedStubbleCultivator() ") end

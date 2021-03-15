@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="53">
   <author>yumi</author>
-  <version>1.0.0.2</version>
+  <version>1.0.1.0</version>
   <title>
     <en>Stubble Cultivator</en>
     <fr>Déchaumeur</fr>
@@ -20,6 +20,8 @@ Fixed in v1.0.0.1
 Fixed in v1.0.0.2
 - Issue with Väderstad Carrier XL 825
 - Adding polish translation
+New in v1.0.1.0
+- New mode Always activated allowing to force chopped straw texture without detecting current crop
     ]]></en>
 <de><![CDATA[
 Dieser Mod ist eine globale Spezialisierung. Sie wird jedem Gerät hinzugefügt welches als Grubber oder Sämaschine eingetragen ist.
@@ -33,6 +35,8 @@ Fixed in V 1.0.0.1
 Fixed in v1.0.0.2
 - Problem mit Väderstad Carrier XL 825
 - Polnische Übersetzung hinzufügen
+New in v1.0.1.0
+- Neuer Modus Immer aktiviert, um die Textur von gehacktem Stroh zu erzwingen, ohne die aktuelle Ernte zu erkennen
 ]]></de>
     <fr><![CDATA[
 Le mod est une spécialisation globale ajoutée à tous les outils implémentant la spec Cultivator et SowingMachine.
@@ -46,40 +50,54 @@ Fixed in v1.0.0.1
 Fixed in v1.0.0.2
 - Problème avec le Väderstad Carrier XL 825
 - Ajout de la traduction polonaise
+New in v1.0.1.0
+- Nouveau mode Toujours activé permettant de forcer la texture de débris de paille sans détecter la culture déchaumée
     ]]></fr>
   </description>
   <iconFilename>icon_StubbleCultivator.dds</iconFilename>
   
   <l10n>
-    <text name="StubbleCultivator_Activate">
-            <en>Activate stubble cultivator</en>
-            <de>Stoppelbearbeitung aktivieren</de>
-            <fr>Activer déchaumeur</fr>
-            <pl>Włącz kultywację ścierniska</pl>
+    <text name="StubbleCultivator_Activated">
+            <en>Stubble cultivator activated</en>
+            <de>Stoppelbearbeitung aktiviert</de>
+            <fr>Déchaumeur activé</fr>
+            <pl>Kultywację ścierniska aktywny</pl>
     </text>
-    <text name="StubbleCultivator_Deactivate">
-            <en>Deactivate stubble cultivator</en>
-            <de>Stoppelbearbeitung deaktivieren</de>
-            <fr>Desactiver déchaumeur</fr>
-            <pl>Wyłącz kultywację ścierniska</pl>
+    <text name="StubbleCultivator_Deactivated">
+            <en>Stubble cultivator deactivated</en>
+            <de>Stoppelbearbeitung deaktiviert</de>
+            <fr>Déchaumeur désactivé</fr>
+            <pl>Kultywację ścierniska wyłączony</pl>
+    </text>
+    <text name="StubbleCultivator_AlwaysActivated">
+            <en>Stubble cultivator always activated</en>
+            <de>Stoppelbearbeitung immer aktiviert</de>
+            <fr>Déchaumeur toujours activé</fr>
+            <pl>Kultywację ścierniska zawsze aktywny</pl>
     </text>
     <text name="input_STUBBLE_OnOffStubbleCultivator">
-            <en>Activate/Deactivate stubble cultivator</en>
-            <de>Stoppelbearbeitung aktivieren/deaktivieren</de>
-            <fr>Activer/Désactiver déchaumeur</fr>
-      <pl>Włącz/Wyłącz kultywację ścierniska</pl>
+            <en>Activate/Always/Deactivate stubble cultivator</en>
+            <de>Stoppelbearbeitung aktivieren/immer/deaktivieren</de>
+            <fr>Activer/Toujours/Désactiver déchaumeur</fr>
+            <pl>Włącz/Zawsze/Wyłącz kultywację ścierniska</pl>
     </text>
-    <text name="StubbleSowingMachine_Activate">
-            <en>Activate stubble sowing</en>
-            <de>Stoppelbearbeitung aktivieren</de>
-            <fr>Activer déchaumeur</fr>
-            <pl>Włącz siew ścierniskowy</pl>
+    <text name="StubbleSowingMachine_Activated">
+            <en>Stubble sowing activated</en>
+            <de>Stoppelbearbeitung aktiviert</de>
+            <fr>Déchaumeur activé</fr>
+            <pl>Siew ścierniskowy aktywny</pl>
     </text>
-    <text name="StubbleSowingMachine_Deactivate">
-            <en>Deactivate stubble sowing</en>
-            <de>Stoppelbearbeitung deaktivieren</de>
-            <fr>Desactiver déchaumeur</fr>
-            <pl>Wyłącz siew ścierniskowy</pl>
+    <text name="StubbleSowingMachine_Deactivated">
+            <en>Stubble sowing deactivated</en>
+            <de>Stoppelbearbeitung deaktiviert</de>
+            <fr>Déchaumeur désactivé</fr>
+            <pl>Siew ścierniskowy wyłączony</pl>
+    </text>
+    <text name="StubbleSowingMachine_AlwaysActivated">
+            <en>Stubble sowing always activated</en>
+            <de>Stoppelbearbeitung immer aktiviert</de>
+            <fr>Déchaumeur toujours activé</fr>
+            <pl>Siew ścierniskowy zawsze aktywny</pl>
     </text>
   </l10n>
 

@@ -24,6 +24,7 @@ function StubbleSowingMachine.registerFunctions(vehicleType)
 	if StubbleSowingMachine.debug then print("StubbleSowingMachine:registerFunctions() ") end
   SpecializationUtil.registerFunction(vehicleType, "setStubbleSowingMachineActive", StubbleSowingMachine.setStubbleSowingMachineActive)
   SpecializationUtil.registerFunction(vehicleType, "getIsStubbleSowingMachineActive", StubbleSowingMachine.getIsStubbleSowingMachineActive)
+  SpecializationUtil.registerFunction(vehicleType, "getIsStubbleSowingMachineAlwaysActive", StubbleSowingMachine.getIsStubbleSowingMachineAlwaysActive)
 end
 
 function StubbleSowingMachine.registerOverwrittenFunctions(vehicleType)
@@ -45,15 +46,17 @@ function StubbleSowingMachine:onLoad(savegame)
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:onLoad() ") end
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
   spec.isStubbleSowingMachineActive = false;
+  spec.isStubbleSowingMachineAlwaysActive = false;
   if savegame ~= nil then
-     local isStubbleSowingMachineActive = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key.."."..StubbleSowingMachine.modName..".StubbleSowingMachine#StubbleSowingMachine"), false);
-    if isStubbleSowingMachineActive == nil then
-      self:setStubbleSowingMachineActive(false);
-    else
-      self:setStubbleSowingMachineActive(isStubbleSowingMachineActive);
-    end
+    local isStubbleSowingMachineActive = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key.."."..StubbleSowingMachine.modName..".StubbleSowingMachine#StubbleSowingMachine"), false);
+    local isStubbleSowingMachineAlwaysActive = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key.."."..StubbleSowingMachine.modName..".StubbleSowingMachine#Always"), false);
+    -- if isStubbleSowingMachineActive == nil then
+    --   self:setStubbleSowingMachineActive(false);
+    -- else
+      self:setStubbleSowingMachineActive(isStubbleSowingMachineActive, isStubbleSowingMachineAlwaysActive);
+    -- end
   else
-      self:setStubbleSowingMachineActive(false);
+      self:setStubbleSowingMachineActive(false, false);
   end;
 end;
 
@@ -61,18 +64,23 @@ function StubbleSowingMachine:saveToXMLFile(xmlFile, key, usedModNames)
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:saveToXMLFile() ") end
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
   setXMLBool(xmlFile, key.."#StubbleSowingMachine", spec.isStubbleSowingMachineActive)
+  setXMLBool(xmlFile, key.."#Always", spec.isStubbleSowingMachineAlwaysActive)
 end;
 
 function StubbleSowingMachine:onReadStream(streamId, connection)
   local isActive = streamReadBool(streamId)
+  local isAlwaysActive = streamReadBool(streamId)
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:onReadStream() "..tostring(isActive)) end
-  self:setStubbleSowingMachineActive(isActive, true);
+  if StubbleSowingMachine.debug then print("StubbleSowingMachine:onReadStream() "..tostring(isAlwaysActive)) end
+  self:setStubbleSowingMachineActive(isActive, isAlwaysActive, true);
 end;
 
 function StubbleSowingMachine:onWriteStream(streamId, connection)
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:onWriteStream() "..tostring(spec.isStubbleSowingMachineActive)) end
+  if StubbleSowingMachine.debug then print("StubbleSowingMachine:onWriteStream() "..tostring(spec.isStubbleSowingMachineAlwaysActive)) end
   streamWriteBool(streamId, spec.isStubbleSowingMachineActive);
+  streamWriteBool(streamId, spec.isStubbleSowingMachineAlwaysActive);
 end;
 
 function StubbleSowingMachine:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
@@ -82,11 +90,16 @@ function StubbleSowingMachine:onUpdate(dt, isActiveForInput, isActiveForInputIgn
       local actionEvent = spec.actionEvents['STUBBLE_OnOffStubbleCultivator']
       if actionEvent ~= nil and actionEvent.actionEventId ~= nil then
         local isActive = self:getIsStubbleSowingMachineActive()
+        local isAlwaysActive = self:getIsStubbleSowingMachineAlwaysActive()
         local text
         if isActive then
-          text = string.format(g_i18n:getText("StubbleSowingMachine_Deactivate"))
+          if isAlwaysActive then
+            text = string.format(g_i18n:getText("StubbleSowingMachine_AlwaysActivated"))
+          else
+            text = string.format(g_i18n:getText("StubbleSowingMachine_Activated"))
+          end
         else
-          text = string.format(g_i18n:getText("StubbleSowingMachine_Activate"))
+          text = string.format(g_i18n:getText("StubbleSowingMachine_Deactivated"))
         end
         g_inputBinding:setActionEventText(actionEvent.actionEventId, text)
       end
@@ -116,7 +129,21 @@ function StubbleSowingMachine.actionEventSetActive(self, actionName, inputValue,
   if StubbleSowingMachine.debug then print("StubbleSowingMachine.actionEventSetActive "..tostring(actionName)) end
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
   if actionName == 'STUBBLE_OnOffStubbleCultivator' then
-    self:setStubbleSowingMachineActive(not spec.isStubbleSowingMachineActive);
+    if not spec.isStubbleSowingMachineActive then
+      if StubbleSowingMachine.debug then print("StubbleSowingMachine On") end
+      -- On
+      self:setStubbleSowingMachineActive(true, false);
+    else
+      if not spec.isStubbleSowingMachineAlwaysActive then
+        if StubbleSowingMachine.debug then print("StubbleSowingMachine Always") end
+        -- Always
+        self:setStubbleSowingMachineActive(true, true);
+      else
+        if StubbleSowingMachine.debug then print("StubbleSowingMachine Off") end
+        -- Off
+        self:setStubbleSowingMachineActive(false, false);
+      end
+    end
   end
 end
 
@@ -180,7 +207,7 @@ function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
   local realArea, area = superfunc(self, workArea, dt)
 
   -- Then choppedStraw if active
-  if self:getIsStubbleSowingMachineActive() and fruitIdx ~= nil then
+  if self:getIsStubbleSowingMachineActive() and (fruitIdx ~= nil or self:getIsStubbleSowingMachineAlwaysActive()) then
     local wxs,_,wzs = getWorldTranslation(workArea.start)
     local wxw,_,wzw = getWorldTranslation(workArea.width)
     local wxh,_,wzh = getWorldTranslation(workArea.height)
@@ -192,22 +219,27 @@ function StubbleSowingMachine:processSowingMachineArea(superfunc, workArea, dt)
   return realArea, area
 end
 
-function StubbleSowingMachine:setStubbleSowingMachineActive(isActive, noEventSend)
+function StubbleSowingMachine:setStubbleSowingMachineActive(isActive, isAlwaysActive, noEventSend)
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:setStubbleSowingMachineActive() "..tostring(isActive)) end
+  if StubbleSowingMachine.debug then print("StubbleSowingMachine:setStubbleSowingMachineActive() "..tostring(isAlwaysActive)) end
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
-  if isActive ~= spec.isStubbleSowingMachineActive then
-    StubbleSowingMachineEvent.sendEvent(self, isActive, noEventSend);
+  if isActive ~= spec.isStubbleSowingMachineActive or isAlwaysActive ~= spec.isStubbleSowingMachineAlwaysActive then
+    StubbleSowingMachineEvent.sendEvent(self, isActive, isAlwaysActive, noEventSend);
     spec.isStubbleSowingMachineActive = isActive
+    spec.isStubbleSowingMachineAlwaysActive = isAlwaysActive
     SpecializationUtil.raiseEvent(self, "onChangedStubbleSowingMachine")
   end;
 end;
-
 
 function StubbleSowingMachine:getIsStubbleSowingMachineActive()
   local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
    return spec.isStubbleSowingMachineActive
 end;
 
+function StubbleSowingMachine:getIsStubbleSowingMachineAlwaysActive()
+  local spec = self["spec_"..StubbleSowingMachine.modName..".StubbleSowingMachine"]
+   return spec.isStubbleSowingMachineAlwaysActive
+end;
 
 function StubbleSowingMachine:onChangedStubbleSowingMachine()
   if StubbleSowingMachine.debug then print("StubbleSowingMachine:onChangedStubbleSowingMachine() ") end
