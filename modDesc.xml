@@ -61,25 +61,25 @@ New in v1.0.1.0
             <en>Stubble cultivator activated</en>
             <de>Stoppelbearbeitung aktiviert</de>
             <fr>Déchaumeur activé</fr>
-            <pl>Kultywację ścierniska aktywny</pl>
+            <pl>Kultywacja ścierniska aktywna</pl>
     </text>
     <text name="StubbleCultivator_Deactivated">
             <en>Stubble cultivator deactivated</en>
             <de>Stoppelbearbeitung deaktiviert</de>
             <fr>Déchaumeur désactivé</fr>
-            <pl>Kultywację ścierniska wyłączony</pl>
+            <pl>Kultywacja ścierniska nieaktywna</pl>
     </text>
     <text name="StubbleCultivator_AlwaysActivated">
             <en>Stubble cultivator always activated</en>
             <de>Stoppelbearbeitung immer aktiviert</de>
             <fr>Déchaumeur toujours activé</fr>
-            <pl>Kultywację ścierniska zawsze aktywny</pl>
+            <pl>Kultywacja ścierniska zawsze aktywna</pl>
     </text>
     <text name="input_STUBBLE_OnOffStubbleCultivator">
             <en>Activate/Always/Deactivate stubble cultivator</en>
             <de>Stoppelbearbeitung aktivieren/immer/deaktivieren</de>
             <fr>Activer/Toujours/Désactiver déchaumeur</fr>
-            <pl>Włącz/Zawsze/Wyłącz kultywację ścierniska</pl>
+            <pl>Przełączanie funckji kultywacji ścierniska</pl>
     </text>
     <text name="StubbleSowingMachine_Activated">
             <en>Stubble sowing activated</en>
@@ -91,7 +91,7 @@ New in v1.0.1.0
             <en>Stubble sowing deactivated</en>
             <de>Stoppelbearbeitung deaktiviert</de>
             <fr>Déchaumeur désactivé</fr>
-            <pl>Siew ścierniskowy wyłączony</pl>
+            <pl>Siew ścierniskowy nieaktywny</pl>
     </text>
     <text name="StubbleSowingMachine_AlwaysActivated">
             <en>Stubble sowing always activated</en>
