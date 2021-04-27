@@ -24,19 +24,19 @@ New in v1.0.1.0
 - New mode Always activated allowing to force chopped straw texture without detecting current crop
     ]]></en>
 <de><![CDATA[
-Dieser Mod ist eine globale Spezialisierung. Sie wird jedem Gerät hinzugefügt welches als Grubber oder Sämaschine eingetragen ist.
-Sobald dieser Mod aktiviert wurde, lässt er das gehäckselte Stroh auf dem Feld, so kann man den Unterschied zwischen einem normalen Grubber und dem aktiven Mod sehen.
+Der Mod ist eine globale Erweiterung, die zu jedem Gerät hinzugefügt wird, dass die Spezifikation für Grubber oder Sämaschine enthält.
+Wenn aktiviert, lässt der Stoppelgrubber gehäckseltes Stroh auf dem Feld liegen, wenn der Grubber benutzt wird, um den Stoppelgrubber vom Standardgrubber zu unterscheiden.
 In ähnlicher Weise bleibt gehäckseltes Stroh nach der Aussaat zurück, wenn der Mod bei einer Sämaschine aktiviert wurde.
 
 CHANGELOG:
 
-Fixed in V 1.0.0.1
+Fixed in V 1.0.0.1:
 - Fehler bei der Erkennung des Arbeitsbereichs der dazu führt das gehäckseltes Stroh nicht immer angezeigt wird.
-Fixed in v1.0.0.2
+Fixed in v1.0.0.2:
 - Problem mit Väderstad Carrier XL 825
-- Polnische Übersetzung hinzufügen
-New in v1.0.1.0
-- Neuer Modus Immer aktiviert, um die Textur von gehacktem Stroh zu erzwingen, ohne die aktuelle Ernte zu erkennen
+- Polnische Übersetzung hinzugefügt
+New in v1.0.1.0:
+- Neuer Modus "immer aktiviert", dieser erzwingt die gehäckselte Strohtextur, ohne Erkennung des aktuellen Ernteguts.
 ]]></de>
     <fr><![CDATA[
 Le mod est une spécialisation globale ajoutée à tous les outils implémentant la spec Cultivator et SowingMachine.
