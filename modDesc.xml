@@ -23,7 +23,7 @@ Fixed in v1.0.0.2
 New in v1.0.1.0
 - New mode Always activated allowing to force chopped straw texture without detecting current crop
     ]]></en>
-<de><![CDATA[
+    <de><![CDATA[
 Der Mod ist eine globale Erweiterung, die zu jedem Gerät hinzugefügt wird, dass die Spezifikation für Grubber oder Sämaschine enthält.
 Wenn aktiviert, lässt der Stoppelgrubber gehäckseltes Stroh auf dem Feld liegen, wenn der Grubber benutzt wird, um den Stoppelgrubber vom Standardgrubber zu unterscheiden.
 In ähnlicher Weise bleibt gehäckseltes Stroh nach der Aussaat zurück, wenn der Mod bei einer Sämaschine aktiviert wurde.
@@ -37,7 +37,7 @@ Fixed in v1.0.0.2:
 - Polnische Übersetzung hinzugefügt
 New in v1.0.1.0:
 - Neuer Modus "immer aktiviert", dieser erzwingt die gehäckselte Strohtextur, ohne Erkennung des aktuellen Ernteguts.
-]]></de>
+    ]]></de>
     <fr><![CDATA[
 Le mod est une spécialisation globale ajoutée à tous les outils implémentant la spec Cultivator et SowingMachine.
 Une fois activé, le mod Dechaumeur laisse les débris de paille (chopped straw) dans le champ pour distinguer un déchaumeur d'un cultivateur standard.
