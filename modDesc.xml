@@ -62,42 +62,49 @@ New in v1.0.1.0
             <de>Stoppelbearbeitung aktiviert</de>
             <fr>Déchaumeur activé</fr>
             <pl>Kultywacja ścierniska aktywna</pl>
+            <ru>Активировать стерневой культиватор</ru>
     </text>
     <text name="StubbleCultivator_Deactivated">
             <en>Stubble cultivator deactivated</en>
             <de>Stoppelbearbeitung deaktiviert</de>
             <fr>Déchaumeur désactivé</fr>
             <pl>Kultywacja ścierniska nieaktywna</pl>
+            <ru>Деактивировать стерневой культиватор</ru>
     </text>
     <text name="StubbleCultivator_AlwaysActivated">
             <en>Stubble cultivator always activated</en>
             <de>Stoppelbearbeitung immer aktiviert</de>
             <fr>Déchaumeur toujours activé</fr>
             <pl>Kultywacja ścierniska zawsze aktywna</pl>
+            <ru>Всегда активировать стерневой культиватор</ru>
     </text>
     <text name="input_STUBBLE_OnOffStubbleCultivator">
             <en>Activate/Always/Deactivate stubble cultivator</en>
             <de>Stoppelbearbeitung aktivieren/immer/deaktivieren</de>
             <fr>Activer/Toujours/Désactiver déchaumeur</fr>
             <pl>Przełączanie funckji kultywacji ścierniska</pl>
+            <ru>Вкл/Всегда/Выкл стерневой культиватор</ru>
     </text>
     <text name="StubbleSowingMachine_Activated">
             <en>Stubble sowing activated</en>
             <de>Stoppelbearbeitung aktiviert</de>
             <fr>Déchaumeur activé</fr>
             <pl>Siew ścierniskowy aktywny</pl>
+            <ru>Активировать стерневую сеялку</ru>
     </text>
     <text name="StubbleSowingMachine_Deactivated">
             <en>Stubble sowing deactivated</en>
             <de>Stoppelbearbeitung deaktiviert</de>
             <fr>Déchaumeur désactivé</fr>
             <pl>Siew ścierniskowy nieaktywny</pl>
+            <ru>Деактивировать стерневую сеялку</ru>
     </text>
     <text name="StubbleSowingMachine_AlwaysActivated">
             <en>Stubble sowing always activated</en>
             <de>Stoppelbearbeitung immer aktiviert</de>
             <fr>Déchaumeur toujours activé</fr>
             <pl>Siew ścierniskowy zawsze aktywny</pl>
+            <ru>Всегда активировать стерневую сеялку</ru>
     </text>
   </l10n>
 
